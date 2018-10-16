@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Atributos lo que va dentro del mapper, en las flechitas
+El mapper es el punto de acceso cmo la puerta de entrada
+
+resultType - tipo de resultado que puedo regresar (int, boolean, object
+parameterType - para mandar los datos
+
+  SELECT c FROM CATALOGO c - el "c" indica el * - es mas de sql server
+        
+parameterType -  
+parameterMap  -  
+
+recordad que el namaspace solo se usa en la etiqueta de mapper y nada mas
+en los demas se usa un id 
+
+
+
+-->
+<mapper namespace="clientes">
+  
+    <select id="getAllClientes" resultType="POJOS.clientes">
+          SELECT 
+          clientes.idCliente,
+          clientes.nombre,
+          clientes.calle,
+          clientes.colonia,
+          clientes.numero,
+          clientes.correo,
+          clientes.fechaNac,
+          clientes.estatus,
+          clientes.altura <!-- Se refiere a la consulta en DB -->
+          FROM clientes
+    </select>
+    
+    <select id="getByName" resultType="POJOS.clientes">
+          SELECT 
+          clientes.idCliente,
+          clientes.nombre
+          FROM clientes
+          WHERE clientes.nombre = #{nombre}
+    </select>
+    
+    <select id="getById" resultType="POJOS.clientes" parameterType="int">
+        SELECT 
+          clientes.idCliente,
+          clientes.nombre,
+          clientes.calle,
+          clientes.colonia,
+          clientes.numero,
+          clientes.correo,
+          clientes.fechaNac,
+          clientes.estatus,
+          clientes.altura
+          FROM clientes 
+          WHERE clientes.idCliente = #{id}        
+    </select>
+    <insert id="nuevoCliente" parameterType="POJOS.clientes">
+        INSERT INTO 
+        clientes (idCliente, nombre, calle, colonia, numero, correo, fechaNac, estatus, altura) 
+        VALUES 
+        (#{idCliente}, #{nombre}, #{calle}, #{colonia}, #{numero}, #{correo}, #{fechaNac}, #{estatus}, #{altura})
+    </insert>
+    
+    <update id="actualizarCliente" parameterType="POJOS.clientes">
+        UPDATE clientes SET nombre = #{nombre}, calle = #{calle}, colonia = #{colonia}, numero = #{numero}, correo = #{correo}, fechaNac = #{fechaNac}, estatus = #{estatus}, altura = #{altura}
+        WHERE idCliente = #{idCliente}
+    </update>
+    
+    <delete id="eliminarCliente" parameterType="POJOS.clientes">
+        DELETE FROM clientes where idCliente = #{idCliente}
+    </delete>
+</mapper>

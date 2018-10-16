@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="progreso">
+      
+    <select id="getAllByIdCliente" resultType="POJOS.Progreso" parameterType="int"> <!-- Deberá recuperar TODO el progreso de un solo usuario -->
+        SELECT 
+          progreso.idProgreso,
+          progreso.Peso,
+          progreso.Talla,
+          progreso.mc,
+          progreso.fechaRegistro,
+          progreso.idCliente
+          FROM progreso
+          WHERE progreso.idCliente = #{idCliente}        
+    </select>
+    
+    <insert id="nuevoProgreso" parameterType="POJOS.Progreso">
+        INSERT INTO 
+        progreso (idProgreso, Peso, Talla, mc, fechaRegistro, idCliente) 
+        VALUES 
+        (#{idProgreso}, #{Peso}, #{Talla}, #{mc}, #{fechaRegistro}, #{idCliente})
+    </insert>
+    
+    <update id="actualizarProgreso" parameterType="POJOS.Progreso">
+        UPDATE progreso SET Peso = #{Peso}, Talla = #{Talla}, mc = #{mc}, fechaRegistro = #{fechaRegistro}
+        WHERE idCliente = #{idCliente} AND idProgreso = #{idProgreso}
+    </update>
+    
+    <delete id="eliminarCliente" parameterType="POJOS.clientes">
+        DELETE FROM clientes where idCliente = #{idCliente}
+    </delete>
+</mapper>

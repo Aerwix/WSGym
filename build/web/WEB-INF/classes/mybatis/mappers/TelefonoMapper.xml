@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Atributos lo que va dentro del mapper, en las flechitas
+El mapper es el punto de acceso cmo la puerta de entrada
+
+resultType - tipo de resultado que puedo regresar (int, boolean, object
+parameterType - para mandar los datos
+
+  SELECT c FROM CATALOGO c - el "c" indica el * - es mas de sql server
+        
+parameterType -  
+parameterMap  -  
+
+recordad que el namaspace solo se usa en la etiqueta de mapper y nada mas
+en los demas se usa un id 
+
+
+
+-->
+<mapper namespace="telefono">
+      
+    <select id="getById" resultType="POJOS.telefono" parameterType="int">
+        SELECT 
+          telefono.idTelefono,
+          telefono.telefonoCasa,
+          telefono.telefonoCel
+          FROM telefono
+          WHERE telefono.idCliente = #{id}        
+    </select>
+    
+    <insert id="nuevoTelefono" parameterType="POJOS.telefono">
+        INSERT INTO 
+        telefono (idTelefono, telefonoCasa, telefonoCel, idCliente) 
+        VALUES 
+        (#{idTelefono}, #{telefonoCasa}, #{telefonoCel}, #{idCliente})
+    </insert>
+    
+    <update id="actualizarTelefono" parameterType="POJOS.telefono">
+        UPDATE telefono SET telefonoCasa = #{telefonoCasa}, telefonoCel = #{telefonoCel}
+        WHERE idCliente = #{idCliente}
+    </update>
+</mapper>
